@@ -1,11 +1,13 @@
 # SmartLab-AI
 Mi proyecto de aprendizaje sobre IA, Python y Arduino.
 
-🌿 BioLab AI - Sistema Inteligente para el Cuidado de Plantas
+# 🌿 BioLab AI - Sistema Inteligente para el Cuidado de Plantas
 
-Uniendo biología, inteligencia artificial y electrónica para crear un laboratorio automatizado.
+> *"Uniendo biología, inteligencia artificial y electrónica para crear un laboratorio automatizado."*
 
-¡Bienvenido a mi proyecto de verano!En este repositorio voy a escribir sobre mi aprendizaje durante 8 semanas. El objetivo final es construir un sistema capaz de monitorear una planta, predecir sus necesidades con IA y actuar físicamente usando Arduino.
+¡Bienvenida a mi proyecto de verano! Este repositorio documenta mi viaje de aprendizaje durante 8 semanas. El objetivo final es construir un sistema capaz de **monitorear una planta**, **predecir sus necesidades** con IA y **actuar físicamente** usando Arduino.
+
+---
 
 ## 🎯 Visión del Proyecto
 
@@ -16,6 +18,7 @@ Al final del verano, este proyecto será capaz de:
 - 👁️ Clasificar imágenes de hojas (sana o seca) con visión artificial.
 - ⚡ Activar LEDs, zumbadores o servomotores para alertar o regar.
 
+---
 
 ## 📅 Roadmap del Verano (8 Semanas)
 
