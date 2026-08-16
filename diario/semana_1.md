@@ -20,12 +20,14 @@
 ## Día 2 (16 de agosto de 2026) - ¡Por fin tenemos datos!
 
 Hoy empecé el día con la intención de conectar el **sensor DHT11** que viene en mi kit Elegoo. Este sensor mide temperatura y humedad, y es muy popular en proyectos de Arduino.
+
 La conexión del DHT11 era correcta:
 - VCC → 5V
 - GND → GND
 - OUT → Pin digital 2
 
 **Código que usé:**
+
 ```cpp
 #include <DHT.h>
 
@@ -55,12 +57,11 @@ void loop() {
   }
   delay(2000);
 }
-
 El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
 El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).Los cables jumper podrían no hacer buen contacto, o el pin digital 2 podría tener algún problema.
 
-Probé a cambiar el pin a 3, revisé las conexiones varias veces, pero el error seguía. Decidí dejar el DHT11  y probar otro sensor. El termistor (NTC)
+Probé a cambiar el pin a 3, revisé las conexiones varias veces, pero el error seguía. Decidí dejar el DHT11 y probar otro sensor. El termistor (NTC)
 
 Mi kit Elegoo incluye un termistor NTC (Negative Temperature Coefficient). Es un componente pequeño con dos patas, parecido a una lágrima negra. Su resistencia cambia con la temperatura: cuando hace más calor, su resistencia disminuye.
 
@@ -90,12 +91,10 @@ void loop() {
 
 Lo que hice fue cambiar el valor 100.0 por 10.0 al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C).0 por 10.0. Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
 
-
 Y entonces el Monitor Serie mostró:
 
 text
 Valor: 560 | Voltaje: 2.74V | Temperatura aprox: 22.4 °C
-
 ¿Qué significan los números que vemos?
 -Valor (560): Es la lectura cruda del conversor analógico-digital (ADC). Va de 0 a 1023, donde 0 es 0V y 1023 es 5V.
 -Voltaje (2.74V): Es la tensión en el pin A0. Se calcula como valor * (5.0 / 1023.0).
@@ -115,5 +114,5 @@ Ahora que tenemos un sensor de temperatura funcionando, el siguiente paso es con
 Archivos guardados hoy
 
 codigo/arduino/termistor_simple.ino - Código final del termistor.
-diario/semana_1.md - Esta entrada del diario. 
+diario/semana_1.md - Esta entrada del diario.
 
