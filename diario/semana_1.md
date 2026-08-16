@@ -97,6 +97,7 @@ El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible 
 Lo que hice fue cambiar el valor 100.0 por 10.0 al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C).0 por 10.0. Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
 
 Y entonces el Monitor Serie enseñó:
+
 ```cpp
 Valor: 560 | Voltaje: 2.74V | Temperatura aprox: 22.4 °C
 ```
