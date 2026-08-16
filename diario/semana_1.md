@@ -10,8 +10,6 @@
 - He instalado Python y el IDE de Arduino.
 - He ejecutado mi primera calculadora en Python con suma, resta, multiplicación, división y potencia.
 - He pedido ayuda a la IA para definir mi proyecto final: **BioLab AI** (un sistema para monitorear plantas con IA y Arduino).
-
-**Aprendizaje del día:**
 - Entendí cómo funciona un repositorio en GitHub y cómo organizar mi proyecto en carpetas desde la interfaz web.
 
 **Próximo paso (mañana):**
@@ -21,11 +19,8 @@
 
 ## Día 2 (16 de agosto de 2026) - ¡Por fin tenemos datos!
 
-### 🔍 El problema inicial: El sensor DHT11
-
 Hoy empecé el día con la intención de conectar el **sensor DHT11** que viene en mi kit Elegoo. Este sensor mide temperatura y humedad, y es muy popular en proyectos de Arduino.
-
-**Conexión del DHT11 (correcta):**
+La conexión del DHT11 era correcta:
 - VCC → 5V
 - GND → GND
 - OUT → Pin digital 2
@@ -60,38 +55,18 @@ void loop() {
   }
   delay(2000);
 }
-El problema: El Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
-Posibles causas:
+El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
-El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).
-Los cables jumper no hacían buen contacto.
-El pin digital 2 podría tener algún problema.
-Probé a cambiar el pin a 3, revisé las conexiones varias veces, pero el error persistía. Decidí dejar el DHT11 aparcado y probar otro sensor.
+El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).Los cables jumper podrían no hacer buen contacto, o el pin digital 2 podría tener algún problema.
 
-🌡️ Solución: El termistor (NTC)
+Probé a cambiar el pin a 3, revisé las conexiones varias veces, pero el error seguía. Decidí dejar el DHT11  y probar otro sensor. El termistor (NTC)
 
-Mi kit Elegoo incluye un termistor NTC (Negative Temperature Coefficient). Es un componente pequeño con dos patas, parecido a una lágrima negra o azul. Su resistencia cambia con la temperatura: cuando hace más calor, su resistencia disminuye.
+Mi kit Elegoo incluye un termistor NTC (Negative Temperature Coefficient). Es un componente pequeño con dos patas, parecido a una lágrima negra. Su resistencia cambia con la temperatura: cuando hace más calor, su resistencia disminuye.
 
-Ventajas del termistor sobre el DHT11:
+Este no necesita librerías complejas, solo requiere una lectura analógica (analogRead()) y además es muy fiable y difícil de romper.
 
-No necesita librerías complejas.
-Solo requiere una lectura analógica (analogRead()).
-Es muy fiable y difícil de romper.
-🔌 Conexión del termistor
-
-Para medir la temperatura con un termistor, usamos un divisor de tensión:
-
-text
-[5V] ---- [Termistor] ---- [A0] ---- [Resistencia 10kΩ] ---- [GND]
-Conexiones reales:
-
-Pata 1 del termistor → 5V
-Pata 2 del termistor → Pin A0
-Resistencia de 10kΩ entre A0 y GND
-El principio es simple: el termistor y la resistencia de 10kΩ forman un divisor de tensión. El voltaje en A0 cambia según la resistencia del termistor, que a su vez cambia con la temperatura.
-
-💻 El código y el problema de la fórmula
+Para medir la temperatura con un termistor, usamos un divisor de tensión. El termistor y la resistencia de 10kΩ forman un divisor de tensión. El voltaje en A0 cambia según la resistencia del termistor, que a su vez cambia con la temperatura.
 
 Primer código que probé:
 
@@ -113,38 +88,24 @@ void loop() {
 }
 ¿Qué pasó? El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible para una habitación. La fórmula (voltaje - 0.5) * 100.0 es correcta para el sensor LM35, que da 10mV por grado Celsius. Pero el termistor NO funciona así. La relación entre voltaje y temperatura no es lineal, así que esa fórmula no se puede aplicar directamente.
 
-🧠 ¿Por qué cambiamos 100 por 10?
+Lo que hice fue cambiar el valor 100.0 por 10.0 al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C).0 por 10.0. Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
 
-Al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C), pensé: "Si divido el resultado entre 10, quizás obtenga un número razonable". Así que probé a cambiar 100.0 por 10.0.
 
-Código corregido:
-
-cpp
-float temperatura = (voltaje - 0.5) * 10.0;
-Y entonces, ¡magia! El Monitor Serie mostró:
+Y entonces el Monitor Serie mostró:
 
 text
 Valor: 560 | Voltaje: 2.74V | Temperatura aprox: 22.4 °C
-¿Por qué funciona este ajuste?
 
-Para el LM35, la fórmula era (voltaje - 0.5) * 100.
-Para mi termistor, los valores eran 10 veces más grandes, así que usar * 10 da un número que se aproxima a la temperatura real.
-Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
-
-📊 ¿Qué significan los números que vemos?
-
-Valor (560): Es la lectura cruda del conversor analógico-digital (ADC). Va de 0 a 1023, donde 0 es 0V y 1023 es 5V.
-Voltaje (2.74V): Es la tensión en el pin A0. Se calcula como valor * (5.0 / 1023.0).
-Temperatura (22.4°C): Es el resultado de nuestra fórmula ajustada. No es exacta, pero nos da una idea de la temperatura ambiente.
-🧪 Prueba de funcionamiento
+¿Qué significan los números que vemos?
+-Valor (560): Es la lectura cruda del conversor analógico-digital (ADC). Va de 0 a 1023, donde 0 es 0V y 1023 es 5V.
+-Voltaje (2.74V): Es la tensión en el pin A0. Se calcula como valor * (5.0 / 1023.0).
+-Temperatura (22.4°C): Es el resultado de nuestra fórmula ajustada. No es exacta, pero nos da una idea de la temperatura ambiente.
 
 Para comprobar que el sensor responde, hice dos pruebas:
 
-Tocar el termistor con los dedos: La temperatura subió unos grados (el calor de mi mano calienta el sensor).
-Soplar sobre el termistor: La temperatura bajó ligeramente (el aire fresco enfría el sensor).
-¡Ambas pruebas funcionaron! El sensor responde a los cambios de temperatura.
-
-📝 Lecciones aprendidas hoy
+-Tocar el termistor con los dedos: La temperatura subió unos grados (el calor de mi mano calienta el sensor).
+-Soplar sobre el termistor: La temperatura bajó ligeramente (el aire fresco enfría el sensor).
+¡Ambas pruebas funcionaron! Eso significa que el sensor responde a los cambios de temperatura.
 
 No todos los sensores son iguales: El DHT11 y el termistor funcionan de forma muy diferente. El DHT11 usa un protocolo digital complejo, mientras que el termistor es analógico y más sencillo.
 La fórmula correcta depende del sensor: Lo que funciona para el LM35 no funciona para un termistor. Es importante entender la física detrás de cada componente.
