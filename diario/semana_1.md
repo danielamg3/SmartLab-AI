@@ -28,34 +28,9 @@ La conexión del DHT11 era correcta:
 
 **Código que usé:**
 
-#include <DHT.h>
 
-#define DHTPIN 2
-#define DHTTYPE DHT11
 
-DHT dht(DHTPIN, DHTTYPE);
 
-void setup() {
-  Serial.begin(9600);
-  dht.begin();
-  Serial.println("¡Sensor DHT11 listo!");
-}
-
-void loop() {
-  float temperatura = dht.readTemperature();
-  float humedad = dht.readHumidity();
-  
-  if (isnan(temperatura) || isnan(humedad)) {
-    Serial.println("Error al leer el sensor");
-  } else {
-    Serial.print("Temperatura: ");
-    Serial.print(temperatura);
-    Serial.print("°C | Humedad: ");
-    Serial.print(humedad);
-    Serial.println("%");
-  }
-  delay(2000);
-}
 El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
 El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).Los cables jumper podrían no hacer buen contacto, o el pin digital 2 podría tener algún problema.
