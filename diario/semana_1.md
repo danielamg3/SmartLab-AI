@@ -28,7 +28,6 @@ La conexión del DHT11 era correcta:
 
 **Código que usé:**
 
-```cpp
 #include <DHT.h>
 
 #define DHTPIN 2
