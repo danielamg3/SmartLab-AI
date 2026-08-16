@@ -27,9 +27,40 @@ La conexión del DHT11 era correcta:
 - OUT → Pin digital 2
 
 **Código que usé:**
+```cpp
 
+#include <DHT.h>
 
+#define DHTPIN 7        // Pin donde conectaste el sensor
+#define DHTTYPE DHT11   // Tipo de sensor
 
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  Serial.begin(9600);
+  dht.begin();
+  Serial.println("¡Sensor DHT11 listo!");
+}
+
+void loop() {
+  // Leer temperatura y humedad
+  float temperatura = dht.readTemperature();
+  float humedad = dht.readHumidity();
+
+  // Comprobar si la lectura es válida
+  if (isnan(temperatura) || isnan(humedad)) {
+    Serial.println("Error al leer el sensor");
+  } else {
+    Serial.print("Temperatura: ");
+    Serial.print(temperatura);
+    Serial.print("°C | Humedad: ");
+    Serial.print(humedad);
+    Serial.println("%");
+  }
+
+  delay(2000); // Esperar 2 segundos entre lecturas
+}
+```
 
 El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
@@ -43,9 +74,9 @@ Este no necesita librerías complejas, solo requiere una lectura analógica (ana
 
 Para medir la temperatura con un termistor, usamos un divisor de tensión. El termistor y la resistencia de 10kΩ forman un divisor de tensión. El voltaje en A0 cambia según la resistencia del termistor, que a su vez cambia con la temperatura.
 
-Primer código que probé:
+**Primer código que probé:**
 
-cpp
+```cpp
 void setup() {
   Serial.begin(9600);
   Serial.println("Termistor listo!");
@@ -61,6 +92,9 @@ void loop() {
   Serial.println(" °C");
   delay(1000);
 }
+```
+
+
 ¿Qué pasó? El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible para una habitación. La fórmula (voltaje - 0.5) * 100.0 es correcta para el sensor LM35, que da 10mV por grado Celsius. Pero el termistor NO funciona así. La relación entre voltaje y temperatura no es lineal, así que esa fórmula no se puede aplicar directamente.
 
 Lo que hice fue cambiar el valor 100.0 por 10.0 al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C).0 por 10.0. Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
