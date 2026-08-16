@@ -26,7 +26,7 @@ La conexión del DHT11 era correcta:
 - OUT → Pin digital 2
 
 **Código que usé:**
-'''cpp
+```cpp
 #include <DHT.h>
 
 #define DHTPIN 2
@@ -107,38 +107,12 @@ Para comprobar que el sensor responde, hice dos pruebas:
 -Soplar sobre el termistor: La temperatura bajó ligeramente (el aire fresco enfría el sensor).
 ¡Ambas pruebas funcionaron! Eso significa que el sensor responde a los cambios de temperatura.
 
-No todos los sensores son iguales: El DHT11 y el termistor funcionan de forma muy diferente. El DHT11 usa un protocolo digital complejo, mientras que el termistor es analógico y más sencillo.
-La fórmula correcta depende del sensor: Lo que funciona para el LM35 no funciona para un termistor. Es importante entender la física detrás de cada componente.
-Los ajustes empíricos son válidos para empezar: A veces, cuando no tenemos la fórmula exacta, podemos ajustar un valor hasta que los números tengan sentido. No es perfecto, pero nos permite avanzar.
-La perseverancia paga: Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
-🚀 Próximos pasos
+Hoy he aprendido que, a veces, cuando no tenemos la fórmula exacta, podemos ajustar un valor hasta que los números tengan sentido. No es perfecto, pero nos permite avanzar.
+Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
 
 Ahora que tenemos un sensor de temperatura funcionando, el siguiente paso es conectar la pantalla LCD para mostrar los datos sin necesidad del ordenador. También quiero empezar a guardar los datos en un archivo CSV para hacer gráficos con Python.
 
-Código final del día:
-
-cpp
-void setup() {
-  Serial.begin(9600);
-  Serial.println("¡Termistor conectado! Temperatura aproximada:");
-}
-
-void loop() {
-  int valor = analogRead(A0);
-  float voltaje = valor * (5.0 / 1023.0);
-  float temperatura = (voltaje - 0.5) * 10.0;   // Ajuste empírico
-  
-  Serial.print("Valor: ");
-  Serial.print(valor);
-  Serial.print(" | Voltaje: ");
-  Serial.print(voltaje, 3);
-  Serial.print("V | Temperatura aprox: ");
-  Serial.print(temperatura, 1);
-  Serial.println(" °C");
-  
-  delay(1000);
-}
-📂 Archivos guardados hoy
+Archivos guardados hoy
 
 codigo/arduino/termistor_simple.ino - Código final del termistor.
 diario/semana_1.md - Esta entrada del diario. 
