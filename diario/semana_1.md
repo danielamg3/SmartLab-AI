@@ -84,9 +84,3 @@ Hoy he aprendido que, a veces, cuando no tenemos la fórmula exacta, podemos aju
 Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
 
 Ahora que tenemos un sensor de temperatura funcionando, el siguiente paso es conectar la pantalla LCD para mostrar los datos sin necesidad del ordenador. También quiero empezar a guardar los datos en un archivo CSV para hacer gráficos con Python.
-
-Archivos guardados hoy
-
-codigo/arduino/termistor_simple.ino - Código final del termistor.
-diario/semana_1.md - Esta entrada del diario.
-
