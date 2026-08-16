@@ -27,6 +27,7 @@ La conexión del DHT11 era correcta:
 - OUT → Pin digital 2
 
 **Código que usé:**
+```cpp
 
 #include <DHT.h>
 
