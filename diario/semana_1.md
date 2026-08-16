@@ -5,15 +5,33 @@
 ---
 
 ## Día 1 (5 de agosto de 2026)
+He instalado **Python** y el **IDE de Arduino** en mi Mac. He hecho mi primera **calculadora en Python**. Hacía suma, resta, multiplicación, división (con control de división entre 0) y potencia. Aquí está el código:
 
-**Lo que he hecho hoy:**
-- He instalado Python y el IDE de Arduino.
-- He ejecutado mi primera calculadora en Python con suma, resta, multiplicación, división y potencia.
-- He pedido ayuda a la IA para definir mi proyecto final: **BioLab AI** (un sistema para monitorear plantas con IA y Arduino).
-- Entendí cómo funciona un repositorio en GitHub y cómo organizar mi proyecto en carpetas desde la interfaz web.
+```cpp
+nombre = input("Hola, ¿Cómo te llamas? ")
+print(f"Bienvenido a tu primera calculadora {nombre}")
 
-**Próximo paso (mañana):**
-- Conectar el sensor DHT11 de mi kit Elegoo y leer la temperatura en el Monitor Serie del IDE de Arduino.
+numero1 = float(input("Escribe el primer número: "))
+numero2 = float(input("Escribe el segundo número: "))
+
+print("La suma es:", numero1 + numero2)
+print("La resta es:", numero1 - numero2)
+print("La multiplicación es:", numero1 * numero2)
+
+if numero2 != 0:
+    print("La división es:", numero1 / numero2)
+else:
+    print("No se puede dividir entre 0")
+
+print("La potencia es:", numero1 ** numero2)
+```
+
+
+He pedido ayuda a la IA para definir mi proyecto final: BioLab AI. Será un sistema para monitorear plantas usando inteligencia artificial y Arduino. He entendido cómo funciona un repositorio en GitHub y he organizado mi proyecto en carpetas desde la interfaz web: README.md, diario/, codigo/, datos/, assets/.
+
+Me ha gustado ver que mi primer programa en Python funcionó a la primera. Lo más nuevo para mí ha sido GitHub, entender que es como una "nube" para guardar código y documentación. Estoy contenta porque empiezo con buen pie el proyecto.
+
+El plan para el próximo día es conectar el sensor DHT11 de mi kit Elegoo y leer la temperatura en el Monitor Serie del IDE de Arduino.
 
 ---
 
