@@ -1,4 +1,4 @@
-# 📘 Semana 1: Hardware Básico y Primeros Pasos
+# Semana 1: Hardware Básico y Primeros Pasos
 
 *Objetivo de la semana:* Conectar el sensor de temperatura DHT11 y mostrar los datos en la pantalla LCD.
 
