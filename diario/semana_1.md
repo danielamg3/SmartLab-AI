@@ -68,9 +68,7 @@ El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).L
 
 Probé a cambiar el pin a 3, revisé las conexiones varias veces, pero el error seguía. Decidí dejar el DHT11 y probar otro sensor. El termistor (NTC)
 
-Mi kit Elegoo incluye un termistor NTC (Negative Temperature Coefficient). Es un componente pequeño con dos patas, parecido a una lágrima negra. Su resistencia cambia con la temperatura: cuando hace más calor, su resistencia disminuye.
-
-Este no necesita librerías complejas, solo requiere una lectura analógica (analogRead()) y además es muy fiable y difícil de romper.
+Mi kit Elegoo incluye un termistor NTC (Negative Temperature Coefficient). Es un componente pequeño con dos patas, parecido a una lágrima negra. Su resistencia cambia con la temperatura: cuando hace más calor, su resistencia disminuye. Este no necesita librerías complejas, solo requiere una lectura analógica (analogRead()) y además es muy fiable y difícil de romper.
 
 Para medir la temperatura con un termistor, usamos un divisor de tensión. El termistor y la resistencia de 10kΩ forman un divisor de tensión. El voltaje en A0 cambia según la resistencia del termistor, que a su vez cambia con la temperatura.
 
@@ -94,15 +92,15 @@ void loop() {
 }
 ```
 
-
-¿Qué pasó? El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible para una habitación. La fórmula (voltaje - 0.5) * 100.0 es correcta para el sensor LM35, que da 10mV por grado Celsius. Pero el termistor NO funciona así. La relación entre voltaje y temperatura no es lineal, así que esa fórmula no se puede aplicar directamente.
+El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible para una habitación. La fórmula (voltaje - 0.5) * 100.0 es correcta para el sensor LM35, que da 10mV por grado Celsius. Pero el termistor NO funciona así. La relación entre voltaje y temperatura no es lineal, así que esa fórmula no se puede aplicar directamente.
 
 Lo que hice fue cambiar el valor 100.0 por 10.0 al ver que la temperatura era 10 veces mayor de lo esperado (223°C en lugar de 22°C).0 por 10.0. Este ajuste no es exacto, pero es suficiente para empezar. Más adelante puedo usar la ecuación de Steinhart-Hart para obtener mediciones más precisas, pero por ahora, ver números entre 20-30°C es un gran avance.
 
-Y entonces el Monitor Serie mostró:
-
-text
+Y entonces el Monitor Serie enseñó:
+```cpp
 Valor: 560 | Voltaje: 2.74V | Temperatura aprox: 22.4 °C
+```
+
 ¿Qué significan los números que vemos?
 -Valor (560): Es la lectura cruda del conversor analógico-digital (ADC). Va de 0 a 1023, donde 0 es 0V y 1023 es 5V.
 -Voltaje (2.74V): Es la tensión en el pin A0. Se calcula como valor * (5.0 / 1023.0).
@@ -114,7 +112,6 @@ Para comprobar que el sensor responde, hice dos pruebas:
 -Soplar sobre el termistor: La temperatura bajó ligeramente (el aire fresco enfría el sensor).
 ¡Ambas pruebas funcionaron! Eso significa que el sensor responde a los cambios de temperatura.
 
-Hoy he aprendido que, a veces, cuando no tenemos la fórmula exacta, podemos ajustar un valor hasta que los números tengan sentido. No es perfecto, pero nos permite avanzar.
-Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
+Hoy he aprendido que, a veces, cuando no tenemos la fórmula exacta, podemos ajustar un valor hasta que los números tengan sentido. No es perfecto, pero nos permite avanzar. Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
 
 Ahora que tenemos un sensor de temperatura funcionando, el siguiente paso es conectar la pantalla LCD para mostrar los datos sin necesidad del ordenador. También quiero empezar a guardar los datos en un archivo CSV para hacer gráficos con Python.
