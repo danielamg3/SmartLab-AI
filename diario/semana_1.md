@@ -61,6 +61,7 @@ void loop() {
   delay(2000); // Esperar 2 segundos entre lecturas
 }
 
+```cpp
 
 El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
