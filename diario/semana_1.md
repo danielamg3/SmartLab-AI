@@ -60,9 +60,7 @@ void loop() {
 
   delay(2000); // Esperar 2 segundos entre lecturas
 }
-
-```cpp
-
+```text
 El problema era que el Monitor Serie mostraba Error al leer el sensor o T: nan H: nan. El código era correcto, la librería estaba instalada, pero el sensor no respondía.
 
 El sensor DHT11 podría estar dañado (a veces vienen defectuosos de fábrica).Los cables jumper podrían no hacer buen contacto, o el pin digital 2 podría tener algún problema.
@@ -76,6 +74,7 @@ Este no necesita librerías complejas, solo requiere una lectura analógica (ana
 Para medir la temperatura con un termistor, usamos un divisor de tensión. El termistor y la resistencia de 10kΩ forman un divisor de tensión. El voltaje en A0 cambia según la resistencia del termistor, que a su vez cambia con la temperatura.
 
 Primer código que probé:
+```cpp
 void setup() {
   Serial.begin(9600);
   Serial.println("Termistor listo!");
@@ -91,7 +90,7 @@ void loop() {
   Serial.println(" °C");
   delay(1000);
 }
-
+```text
 
 ¿Qué pasó? El Monitor Serie mostraba valores como 223°C, que es una temperatura imposible para una habitación. La fórmula (voltaje - 0.5) * 100.0 es correcta para el sensor LM35, que da 10mV por grado Celsius. Pero el termistor NO funciona así. La relación entre voltaje y temperatura no es lineal, así que esa fórmula no se puede aplicar directamente.
 
