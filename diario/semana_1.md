@@ -17,7 +17,7 @@
 
 ---
 
-## Día 2 (16 de agosto de 2026) - ¡Por fin tenemos datos!
+## Día 2 (16 de agosto de 2026) 
 
 Hoy empecé el día con la intención de conectar el **sensor DHT11** que viene en mi kit Elegoo. Este sensor mide temperatura y humedad, y es muy popular en proyectos de Arduino.
 
