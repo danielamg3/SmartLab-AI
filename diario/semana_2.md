@@ -77,7 +77,6 @@ Mañana, guardaré estos datos en un archivo CSV para poder hacer gráficos con 
 
 El objetivo de hoy es modificar el script de Python para que guarde los datos de temperatura en un archivo CSV con fecha y hora, y que el archivo se almacene en una carpeta organizada dentro del proyecto.
 
----
 Al ejecutar el script `guardar_datos.py`, aparecía un error:
 ```cpp
 FileNotFoundError: [Errno 2] No such file or directory: './datos/temperaturas.csv'
@@ -165,3 +164,5 @@ Crear la carpeta datos manualmente (o con os.makedirs) evita errores de FileNotF
 El archivo CSV es un formato excelente para guardar datos estructurados porque es legible por humanos y fácil de procesar con Python, Excel y otras herramientas.
 
 Mañana, haré un gráfico en tiempo real con matplotlib para visualizar los datos de temperatura mientras se recogen. ¡El proyecto se pone más interesante!
+
+---
