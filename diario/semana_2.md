@@ -6,7 +6,6 @@
 
 ## Día 1 (25 de agosto de 2026) 
 
----
 el objetivo de hoy era conseguir que Python leyera los datos de temperatura que envía Arduino a través del puerto USB, y mostrarlos en la terminal.
 Lo primero fue modificar el código de Arduino para que solo enviara el número de temperatura, sin texto extra. Así Python podría leerlo fácilmente.
 
