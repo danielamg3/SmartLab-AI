@@ -1,0 +1,64 @@
+Last login: Mon Aug 24 17:19:44 on console
+daniela@iMac-de-Daniela ~ % pip3 install pyserial
+Collecting pyserial
+  Downloading pyserial-3.5-py2.py3-none-any.whl.metadata (1.6 kB)
+Downloading pyserial-3.5-py2.py3-none-any.whl (90 kB)
+Installing collected packages: pyserial
+Successfully installed pyserial-3.5
+
+[notice] A new release of pip is available: 26.1.2 -> 26.2.1
+[notice] To update, run: pip3 install --upgrade pip
+daniela@iMac-de-Daniela ~ % python3 leer_arduino.py
+/Library/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/daniela/leer_arduino.py': [Errno 2] No such file or directory
+daniela@iMac-de-Daniela ~ % cd ~/Documents/GitHub/SmartLab-AI/codigo/python
+cd: no such file or directory: /Users/daniela/Documents/GitHub/SmartLab-AI/codigo/python
+daniela@iMac-de-Daniela ~ % ls
+Desktop		Downloads	Movies		Pictures
+Documents	Library		Music		Public
+daniela@iMac-de-Daniela ~ % python3 leer_arduino.py
+/Library/Frameworks/Python.framework/Versions/3.13/Resources/Python.app/Contents/MacOS/Python: can't open file '/Users/daniela/leer_arduino.py': [Errno 2] No such file or directory
+daniela@iMac-de-Daniela ~ % find ~ -name "SmartLab-AI" -type d 2>/dev/null
+/Users/daniela/Documents/GitHub/SmartLab-AI
+daniela@iMac-de-Daniela ~ % cd /Users/daniela/Documents/GitHub/SmartLab-AI
+
+daniela@iMac-de-Daniela SmartLab-AI % bash
+python3 leer_arduino.py
+
+The default interactive shell is now zsh.
+To update your account to use zsh, please run `chsh -s /bin/zsh`.
+For more details, please visit https://support.apple.com/kb/HT208050.
+bash-3.2$ cd /Users/daniela/Documents/GitHub/SmartLab-AI/codigo/python
+bash: cd: /Users/daniela/Documents/GitHub/SmartLab-AI/codigo/python: No such file or directory
+bash-3.2$ ls
+Assests		Código		README.md	diario
+bash-3.2$ cd /Users/daniela/Documents/GitHub/SmartLab-AI/Código/Python
+bash-3.2$ ls
+calculadora.py	leer_arduino.py
+bash-3.2$ python3 leer_arduino.py
+/Library/Frameworks/Python.framework/Versions/3.13/bin/python3: can't find '__main__' module in '/Users/daniela/Documents/GitHub/SmartLab-AI/Código/Python/leer_arduino.py'
+bash-3.2$ nano leer_arduino.py
+
+  UW PICO 5.09                       File: leer_arduino.py                        Modified  
+
+except Exception as e:
+    print(f"❌ No se pudo conectar al puerto {puerto}")
+    print(f"Error: {e}")
+    exit()
+
+print("📡 Leyendo datos de temperatura... (presiona Ctrl+C para salir)")
+while True:
+    try:
+        linea = arduino.readline().decode('utf-8').strip()
+        if linea:
+            temperatura = float(linea)
+            print(f"🌡️️ ️ Temperatura: {temperatura} °C")
+    except KeyboardInterrupt:
+        print("\n⏹️️ ️ Programa terminado por el usuario")
+        break
+    except ValueError:
+        print(f"⚠️️ ️ Dato no válido: {linea}")
+    
+        
+
+^G Get Help    ^O WriteOut    ^R Read File   ^Y Prev Pg     ^K Cut Text    ^C Cur Pos     
+^X Exit        ^J Justify     ^W Where is    ^V Next Pg     ^U UnCut Text  ^T To Spell    
