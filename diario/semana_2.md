@@ -166,7 +166,7 @@ El archivo CSV es un formato excelente para guardar datos estructurados porque e
 Mañana, haré un gráfico en tiempo real con matplotlib para visualizar los datos de temperatura mientras se recogen. ¡El proyecto se pone más interesante!
 
 ---
-## Día 3 (28 de agosto de 2026) 
+## Día 3 (27 de agosto de 2026) 
 
 Hoy tocaba la parte más visual, ver la temperatura en un gráfico que se actualiza solo, sin tener que hacer nada. Quería que los datos que llegan de Arduino se pintaran en una ventana, punto a punto, como si fuera un electrocardiograma pero de temperatura.
 
