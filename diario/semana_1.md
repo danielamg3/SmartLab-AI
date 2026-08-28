@@ -5,6 +5,7 @@
 ---
 
 ## Día 1 (5 de agosto de 2026)
+
 He instalado **Python** y el **IDE de Arduino** en mi Mac. He hecho mi primera **calculadora en Python**. Hacía suma, resta, multiplicación, división (con control de división entre 0) y potencia. Aquí está el código:
 
 ```cpp
@@ -49,7 +50,7 @@ La conexión del DHT11 era correcta:
 
 #include <DHT.h>
 
-#define DHTPIN 7        // Pin donde conectaste el sensor
+#define DHTPIN 7        // 
 #define DHTTYPE DHT11   // Tipo de sensor
 
 DHT dht(DHTPIN, DHTTYPE);
@@ -134,3 +135,78 @@ Para comprobar que el sensor responde, hice dos pruebas:
 Hoy he aprendido que, a veces, cuando no tenemos la fórmula exacta, podemos ajustar un valor hasta que los números tengan sentido. No es perfecto, pero nos permite avanzar. Después de varias horas y muchos errores (DHT11, puerto USB ocupado, fórmulas incorrectas), finalmente hemos conseguido ver una temperatura en el Monitor Serie.
 
 Ahora que tenemos un sensor de temperatura funcionando, el siguiente paso es conectar la pantalla LCD para mostrar los datos sin necesidad del ordenador. También quiero empezar a guardar los datos en un archivo CSV para hacer gráficos con Python.
+
+---
+## Día 3 (17 de agosto de 2026) 
+
+Hoy el objetivo era conectar la pantalla LCD para ver la temperatura sin depender del ordenador. Pero antes, tuve que ir a comprar un **potenciómetro de 10kΩ** porque el mío no aparecía por ningún lado (supongo que se perdió en algún proyecto anterior). 
+
+Una vez en casa, me puse a conectar la pantalla. Ya sabía cómo se conectaba porque en clase de tecnología habíamos usado varias veces pantallas LCD, así que no fue ningún misterio. La LCD que tengo es la clásica de 16 pines (sin módulo I2C), así que hay que conectar muchos cables, pero con el esquema que preparé fue rápido.
+
+Este es el código que subí al Arduino. Combina la lectura del termistor con la pantalla LCD.
+
+```cpp
+#include <LiquidCrystal.h>  // Librería para controlar la LCD
+
+// Definir los pines de la LCD (RS, E, D4, D5, D6, D7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+const int pinTermistor = A0;  // Termistor conectado al pin analógico A0
+
+void setup() {
+  // Iniciar la comunicación serie (por si quiero ver datos en el ordenador)
+  Serial.begin(9600);
+  
+  // Iniciar la LCD: 16 columnas, 2 filas
+  lcd.begin(16, 2);
+  
+  // Encender la luz de fondo (por si acaso)
+  lcd.backlight();
+  
+  // Mostrar mensaje de bienvenida en la primera fila
+  lcd.setCursor(0, 0);
+  lcd.print("BioLab AI");
+  
+  // Mostrar "Temp:" en la segunda fila
+  lcd.setCursor(0, 1);
+  lcd.print("Temp: ");
+  
+  Serial.println("Sistema iniciado");
+}
+
+void loop() {
+  // 1. Leer el valor analógico del termistor (0 a 1023)
+  int valor = analogRead(pinTermistor);
+  
+  // 2. Convertir ese valor a voltaje (0 a 5V)
+  float voltaje = valor * (5.0 / 1023.0);
+  
+  // 3. Convertir voltaje a temperatura (ajuste empírico)
+  //    La fórmula (voltaje - 0.5) * 10.0 es una aproximación
+  //    que funciona para este termistor en concreto.
+  float temperatura = (voltaje - 0.5) * 10.0;
+  
+  // 4. Mostrar en el Monitor Serie (para depurar si algo falla)
+  Serial.print("Valor: ");
+  Serial.print(valor);
+  Serial.print(" | Temp: ");
+  Serial.print(temperatura, 1);
+  Serial.println(" C");
+  
+  // 5. Mostrar en la LCD
+  lcd.setCursor(6, 1);   // Columna 6, fila 1 (después de "Temp: ")
+  lcd.print("    ");     // Borrar caracteres anteriores (por si la temperatura baja)
+  lcd.setCursor(6, 1);
+  lcd.print(temperatura, 1);  // Mostrar con 1 decimal
+  lcd.print(" C");
+  
+  delay(1000);  // Actualizar cada segundo
+}
+```
+
+Después de cargar el código y comprobar que funcionaba con el ordenador (se veía la temperatura en la LCD y en el Monitor Serie), decidí probar si el sistema funcionaba sin el ordenador, solo con una pila de 9V conectada al Arduino, y funcionó perfectamente. La pantalla se encendió y mostraba la temperatura sin necesidad de USB. Esto es importante porque significa que el proyecto puede ser autónomo y funcionar con baterías. Aprovechando que ya tenía la LCD funcionando, terminé de modificar el archivo README.md. Además, creé la carpeta assets y subí las primeras imágenes.
+
+Un potenciómetro es clave para el contraste, sin él, la pantalla no se veía nada. El proyecto ya es autónomo, al funcionar con pila, puedo llevarlo a cualquier sitio sin depender del ordenador. Ahora cualquiera que vea mi repositorio puede entender mejor el proyecto. 
+
+¡Y así, en solo 3 días, hemos completado la Semana 1! Lo que estaba planeado para 7 días lo he hecho en menos de la mitad. He instalado el entorno, conectado el termistor, ajustado la fórmula, montado la pantalla LCD, organizado el repositorio, subido imágenes y documentado cada paso. El proyecto ya tiene vida propia y funciona de forma autónoma. Ahora toca dar el salto: vamos a conectar Arduino con Python para empezar a guardar datos, hacer gráficos y preparar el terreno para la inteligencia artificial. Semana 2, ¡allá vamos!
+
