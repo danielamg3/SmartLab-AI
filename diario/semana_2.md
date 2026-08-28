@@ -166,3 +166,95 @@ El archivo CSV es un formato excelente para guardar datos estructurados porque e
 Mañana, haré un gráfico en tiempo real con matplotlib para visualizar los datos de temperatura mientras se recogen. ¡El proyecto se pone más interesante!
 
 ---
+## Día 3 (28 de agosto de 2026) 
+
+Hoy tocaba la parte más visual, ver la temperatura en un gráfico que se actualiza solo, sin tener que hacer nada. Quería que los datos que llegan de Arduino se pintaran en una ventana, punto a punto, como si fuera un electrocardiograma pero de temperatura.
+
+Lo primero que había que hacer era instalar matplotlib. Para hacer gráficos en Python necesito una librería llamada **`matplotlib`**. Es una herramienta que le dice a Python cómo dibujar líneas, puntos, ejes y todo eso. Pero esta librería no viene instalada por defecto. Hay que descargarla e instalarla. Para eso, usé la terminal.
+
+La terminal es una ventana donde se escriben órdenes directamente al ordenador, sin botones ni ventanas bonitas. Parece complicada, pero es muy útil para instalar cosas o ejecutar programas.
+Escribí esto:
+
+```cpp
+pip3 install matplotlib
+```
+pip3 es el "gestor de paquetes" de Python. Es como una tienda de aplicaciones, pero para código.
+install le dice que quiero instalar algo.
+matplotlib es el nombre de la librería.
+
+Luego creé un nuevo script en VS Code llamado grafico_tiempo_real.py. Voy a explicar sus partes más importantes de forma sencilla:
+
+1. Importar las librerías
+```cpp
+import serial
+import time
+import csv
+from datetime import datetime
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+import os
+```
+Cada import es como pedir prestada una herramienta:
+serial → para hablar con Arduino.
+csv → para guardar datos en el archivo.
+datetime → para poner la fecha y hora.
+matplotlib → para dibujar el gráfico.
+animation → para que el gráfico se mueva solo.
+os → para crear carpetas si no existen.
+
+2. Conectar con Arduino
+```cpp
+puerto = '/dev/cu.usbmodem14101'
+arduino = serial.Serial(puerto, 9600, timeout=1)
+```
+Aquí le digo a Python: "Conéctate al mismo puerto USB donde está Arduino". El número 9600 es la velocidad a la que hablan.
+
+3. Las listas para guardar los datos
+```cpp
+tiempos = []
+temperaturas = []
+```
+Son como dos cajas vacías. Una guardará los segundos desde que empieza el programa, y la otra guardará la temperatura en ese momento. Así podemos dibujar los pares (tiempo, temperatura).
+
+4. La función que se repite cada segundo
+```cpp
+def actualizar(frame):
+    linea = arduino.readline().decode('utf-8').strip()
+    ...
+```
+Esta función se ejecuta automáticamente cada segundo. Hace lo siguiente:
+Lee una línea del puerto serie (el número que envía Arduino).
+Si la línea tiene un número, lo convierte a temperatura.
+Guarda la fecha y hora.
+Añade el dato a las listas tiempos y temperaturas.
+Limpia el gráfico y lo vuelve a dibujar con los nuevos puntos.
+
+5. La animación
+```cpp
+ani = animation.FuncAnimation(fig, actualizar, interval=1000)
+```
+Esta línea es la magia. Le dice a Python: "Ejecuta la función actualizar cada 1000 milisegundos (1 segundo) y actualiza el gráfico".
+
+Al ejecutar el script, la terminal mostraba:
+```cpp
+⚠️ Dato no válido: Valor: 526 | Temp: 20.7 C
+⚠️ Dato no válido: Sistema iniciado
+```
+¿Qué pasaba? El script esperaba recibir un número limpio, como 20.7, pero Arduino estaba enviando texto extra: Valor: 526 | Temp: 20.7 C. Cuando Python intentaba convertir esa línea a número, no podía y daba error.
+Por eso modifiqué el código de Arduino para que solo enviara el número, sin texto. Así:
+```cpp
+Serial.println(temperatura, 1);
+```
+Con eso, Arduino solo envía 20.7 y Python lo entiende perfectamente. Después de arreglar eso, ejecuté el script y vi:
+```cpp
+ 2026-08-28 12:15:00 → 20.7 °C
+ 2026-08-28 12:15:01 → 20.8 °C
+```
+Y en una ventana nueva, el gráfico se dibujaba solo, punto a punto, mostrando cómo cambiaba la temperatura.
+Incluso probé a tocar el termistor y vi cómo subía en el gráfico.
+
+Hoy he aprendido a instalar librerías con pip, es normal y seguro. Es la forma estándar de añadir funcionalidades a Python. 
+El formato de los datos es clave. Si Arduino envía texto extra, Python no puede interpretarlo. Para comunicar dos programas, hay que ponerse de acuerdo en el formato.
+matplotlib permite hacer gráficos en tiempo real con muy poco código. Es una herramienta muy potente para visualizar datos.
+
+Mañana, en el Día 4, añadiré más datos al gráfico o mejoraré su formato.
