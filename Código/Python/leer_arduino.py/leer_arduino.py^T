@@ -1,0 +1,27 @@
+import serial
+import time
+
+# Cambia esto por el puerto que uses (ej: /dev/cu.usbmodem14101)
+puerto = '/dev/cu.usbmodem14101'
+
+try:
+    arduino = serial.Serial(puerto, 9600, timeout=1)
+    time.sleep(2)
+    print("✅ Conectado a Arduino")
+except Exception as e:
+    print(f"❌ No se pudo conectar al puerto {puerto}")
+    print(f"Error: {e}")
+    exit()
+
+print("📡 Leyendo datos de temperatura... (presiona Ctrl+C para salir)")
+while True:
+    try:
+        linea = arduino.readline().decode('utf-8').strip()
+        if linea:
+            temperatura = float(linea)
+            print(f"🌡️ Temperatura: {temperatura} °C")
+    except KeyboardInterrupt:
+        print("\n⏹️ Programa terminado por el usuario")
+        break
+    except ValueError:
+        print(f"⚠️ Dato no válido: {linea}")
