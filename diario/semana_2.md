@@ -492,3 +492,56 @@ Mañana revisaré todo lo hecho esta semana, prepararé el terreno para la Seman
 ---
 
 ## Día 5 (29 de agosto de 2026) 
+
+Hoy es el último día de la Semana 2. El objetivo es:
+- Revisar que todo funciona correctamente.
+- Organizar los archivos y subirlos a GitHub.
+- Actualizar el `README.md` con el estado actual del proyecto.
+- Hacer un resumen de lo aprendido esta semana.
+- Preparar todo para la Semana 3.
+
+Antes de dar por cerrada la semana, he ejecutado todos los scripts para asegurarme de que funcionan:
+
+| Script | Función | Estado |
+| :--- | :--- | :--- |
+| `leer_arduino.py` | Lee y muestra la temperatura en la terminal |  Funciona |
+| `guardar_datos.py` | Guarda los datos en `Datos/temperaturas.csv` |  Funciona |
+| `grafico_tiempo_real.py` | Muestra gráfico en tiempo real y guarda imágenes en `Gráficas/` |  Funciona |
+
+Comprobaciones adicionales:
+- El código de Arduino está subido y mide cada 5 segundos.
+- Las rutas absolutas funcionan correctamente.
+- No hay carpetas duplicadas ni archivos sueltos.
+
+Resumen de la Semana 2:
+
+| Día | Logros |
+| :---: | :--- |
+| Día 1 | Conexión Arduino-Python con `pyserial`. Lectura de datos en la terminal. |
+| Día 2 | Guardado de datos en archivo CSV con fecha y hora. |
+| Día 3 | Gráfico en tiempo real con `matplotlib`. |
+| Día 4 | Mejora del gráfico (colores, título, leyenda). Guardado automático de imágenes cada 60 segundos. Organización definitiva de carpetas con rutas absolutas. |
+| Día 5 | Revisión final y preparación para la Semana 3. |
+
+La próxima semana empezaremos a predecir la temperatura utilizando los datos que hemos recogido.
+Primero haré una pequeña introducción de "Machine Learning" con `scikit-learn`. Luego prepararé los datos (cargar CSV, limpiar y dividir en entrenamiento/prueba). Entrenaré un modelo de regresión lineal para predecir la temperatura futura. evaluaré el modelo y visualizar las predicciones. E integraré el modelo con el sistema actual y documentar.
+
+Usaré: 
+- `pandas` → para manejar los datos.
+- `scikit-learn` → para el modelo de Machine Learning.
+- `matplotlib` → para visualizar predicciones.
+
+He subido todos los cambios a GitHub con el siguiente mensaje de commit:
+```cpp
+Semana 2 completada:
+- Conexión Arduino-Python con pyserial
+- Guardado de datos en CSV
+- Gráfico en tiempo real con matplotlib
+- Guardado automático de imágenes
+- Organización definitiva de carpetas con rutas absolutas
+```
+
+Esta semana ha sido especialmente intensa porque he aprendido a conectar Python con Arduino usando pyserial y manejar el puerto serie. Guardar datos en CSV con fecha y hora para llevar un registro histórico. Crear gráficos en tiempo real con matplotlib y actualizarlos automáticamente.
+Guardar imágenes automáticamente para documentar el proyecto. Organizar un proyecto de software con carpetas claras y rutas absolutas, evitando duplicados y confusiones.
+
+El proyecto ya tiene una base sólida, sensor funcionando, datos guardados, gráficos visuales y todo bien documentado. La próxima semana será el momento de dar el salto a la inteligencia artificial. El lunes empezaremos la Semana 3 con la instalación de pandas y scikit-learn, y la carga de los datos de temperatura para empezar a entrenar nuestro primer modelo de Machine Learning.
