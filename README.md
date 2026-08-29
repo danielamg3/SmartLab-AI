@@ -5,7 +5,7 @@ Mi proyecto de aprendizaje sobre IA, Python y Arduino.
 
 > *"Uniendo biología, inteligencia artificial y electrónica para crear un laboratorio automatizado."*
 
-¡Bienvenida a mi proyecto de verano! Este repositorio documenta mi aprendizaje durante 8 semanas. El objetivo final es construir un sistema capaz de **monitorear una planta**, **predecir sus necesidades** con IA y **actuar físicamente** usando Arduino.
+¡Bienvenido a mi proyecto de verano! Este repositorio documenta mi aprendizaje durante 8 semanas. El objetivo final es construir un sistema capaz de **monitorear una planta**, **predecir sus necesidades** con IA y **actuar físicamente** usando Arduino.
 
 ---
 
