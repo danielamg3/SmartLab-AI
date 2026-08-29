@@ -496,7 +496,6 @@ Mañana revisaré todo lo hecho esta semana, prepararé el terreno para la Seman
 Hoy es el último día de la Semana 2. El objetivo es:
 - Revisar que todo funciona correctamente.
 - Organizar los archivos y subirlos a GitHub.
-- Actualizar el `README.md` con el estado actual del proyecto.
 - Hacer un resumen de lo aprendido esta semana.
 - Preparar todo para la Semana 3.
 
